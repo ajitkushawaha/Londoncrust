@@ -2,14 +2,14 @@ import { randomBytes, scryptSync, timingSafeEqual } from 'crypto';
 import { ObjectId } from 'mongodb';
 import { getDb } from '@/lib/db';
 
-const DEFAULT_ADMIN_USERNAME = 'admin';
-const DEFAULT_ADMIN_PASSWORD = 'admin123';
+const DEFAULT_ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
+const DEFAULT_ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 
 export const SESSION_COOKIE_NAME = 'session_token';
 export const GUEST_SESSION_COOKIE_NAME = 'guest_session_token';
-const SESSION_TTL_DAYS = 7;
+const SESSION_TTL_DAYS = Number(process.env.SESSION_TTL_DAYS) || 7;
 const SESSION_TTL_MS = SESSION_TTL_DAYS * 24 * 60 * 60 * 1000;
-const GUEST_SESSION_TTL_MS = 60 * 60 * 1000;
+const GUEST_SESSION_TTL_MS = Number(process.env.GUEST_SESSION_TTL_MS) || 60 * 60 * 1000;
 
 interface DbUser {
   _id: ObjectId;
