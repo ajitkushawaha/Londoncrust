@@ -2,6 +2,7 @@
 
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import OrderOnlineModal from '@/components/OrderOnlineModal';
 import { restaurantInfo } from '@/lib/mockData';
 import {
   ArrowRight,
@@ -21,6 +22,7 @@ import { useEffect, useState } from 'react';
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
 
   useEffect(() => {
     setIsLoaded(true);
@@ -63,18 +65,18 @@ export default function Home() {
                 </p>
 
                 <div className="flex flex-wrap gap-4">
-                  <Link
-                    href="/menu"
-                    className="px-10 py-5 bg-red-600 text-white rounded-2xl font-black text-xl hover:bg-red-700 hover:scale-105 active:scale-95 transition-all flex items-center gap-3 shadow-[0_20px_40px_-10px_rgba(220,38,38,0.4)] group"
+                  <button
+                    onClick={() => setIsOrderModalOpen(true)}
+                    className="px-10 py-5 bg-red-600 text-white rounded-2xl font-black text-xl hover:bg-red-700 hover:scale-105 active:scale-95 transition-all flex items-center gap-3 shadow-[0_20px_40px_-10px_rgba(220,38,38,0.4)] group mt-4 sm:mt-0"
                   >
                     ORDER NOW
                     <ArrowRight size={24} className="group-hover:translate-x-1 transition-transform" />
-                  </Link>
+                  </button>
                   <Link
                     href="/menu"
                     className="px-10 py-5 bg-blue-600 text-white rounded-2xl font-black text-xl hover:bg-blue-700 hover:scale-105 active:scale-95 transition-all flex items-center gap-3 shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)]"
                   >
-                    THE MENU
+                    IN-CAFE MENU
                   </Link>
                 </div>
               </div>
@@ -201,12 +203,15 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="bg-white p-8 rounded-4xl shadow-xl flex items-center gap-6 border-2 border-slate-100">
-                <div className="p-4 bg-blue-600 rounded-2xl text-white">
+              <div
+                onClick={() => setIsOrderModalOpen(true)}
+                className="bg-white p-8 rounded-4xl shadow-xl flex items-center gap-6 border-2 border-slate-100 cursor-pointer hover:border-blue-600 transition-colors group"
+              >
+                <div className="p-4 bg-blue-600 rounded-2xl text-white group-hover:scale-110 transition-transform">
                   <ShoppingBag size={32} />
                 </div>
                 <div>
-                  <p className="text-xs font-black text-slate-400 uppercase tracking-widest">Order On</p>
+                  <p className="text-xs font-black text-slate-400 uppercase tracking-widest">Order Online</p>
                   <p className="text-xl font-black text-slate-900 uppercase italic">Zomato • Swiggy</p>
                 </div>
               </div>
@@ -224,12 +229,12 @@ export default function Home() {
               <div className="relative z-10 max-w-2xl mx-auto space-y-8">
                 <h2 className="text-5xl sm:text-7xl font-black italic uppercase leading-none mt-4">Still Hungry <br /> for <span className="text-blue-200">More?</span></h2>
                 <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                  <Link
-                    href="/menu"
+                  <button
+                    onClick={() => setIsOrderModalOpen(true)}
                     className="px-12 py-6 bg-white text-red-600 rounded-2xl font-black text-2xl hover:bg-slate-50 transition-all shadow-xl hover:scale-105 active:scale-95 uppercase italic"
                   >
-                    Let's Eat!
-                  </Link>
+                    ORDER NOW
+                  </button>
                 </div>
                 <p className="text-sm font-black uppercase tracking-widest text-red-100">Available across Ahmedabad for fast delivery</p>
               </div>
@@ -239,6 +244,7 @@ export default function Home() {
       </main>
 
       <Footer />
+      <OrderOnlineModal isOpen={isOrderModalOpen} onClose={() => setIsOrderModalOpen(false)} />
 
       <style jsx global>{`
         @keyframes marquee {

@@ -26,6 +26,8 @@ export async function GET(req: NextRequest) {
     sentToKitchenAt: d.sentToKitchenAt,
     acceptedAt: d.acceptedAt,
     etaMinutes: d.etaMinutes,
+    billRequested: d.billRequested,
+    billRequestAccepted: d.billRequestAccepted,
   }));
   return NextResponse.json<ApiResponse<Order[]>>({ ok: true, data });
 }

@@ -48,6 +48,7 @@ export async function POST(req: NextRequest) {
           lastSeenAt: Date.now(),
           lastTableId: tableId,
         },
+        $inc: { visits: 1 },
         $setOnInsert: { createdAt: Date.now() },
       },
       { upsert: true },

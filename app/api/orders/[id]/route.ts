@@ -39,6 +39,8 @@ export async function GET(
       sentToKitchenAt: doc.sentToKitchenAt,
       acceptedAt: doc.acceptedAt,
       etaMinutes: doc.etaMinutes,
+      billRequested: doc.billRequested,
+      billRequestAccepted: doc.billRequestAccepted,
     };
     return NextResponse.json<ApiResponse<Order>>({ ok: true, data: order });
   } catch {
@@ -57,12 +59,14 @@ export async function PATCH(
   try {
     const body = (await req.json()) as {
       action:
-        | 'verify'
-        | 'send_to_kitchen'
-        | 'accept'
-        | 'complete'
-        | 'cancel'
-        | 'reject';
+      | 'verify'
+      | 'send_to_kitchen'
+      | 'accept'
+      | 'complete'
+      | 'cancel'
+      | 'reject'
+      | 'request_bill'
+      | 'accept_bill';
       etaMinutes?: number;
     };
     const db = await getDb();
@@ -91,6 +95,10 @@ export async function PATCH(
       set = { status: 'cancelled' };
     } else if (body.action === 'reject') {
       set = { status: 'rejected' };
+    } else if (body.action === 'request_bill') {
+      set = { billRequested: true };
+    } else if (body.action === 'accept_bill') {
+      set = { billRequestAccepted: true };
     } else {
       return NextResponse.json<ApiResponse<null>>(
         { ok: false, error: 'Invalid action' },
@@ -126,6 +134,8 @@ export async function PATCH(
       sentToKitchenAt: (updatedDoc as any).sentToKitchenAt,
       acceptedAt: (updatedDoc as any).acceptedAt,
       etaMinutes: (updatedDoc as any).etaMinutes,
+      billRequested: (updatedDoc as any).billRequested,
+      billRequestAccepted: (updatedDoc as any).billRequestAccepted,
     };
     return NextResponse.json<ApiResponse<Order>>({ ok: true, data: order });
   } catch (e: any) {

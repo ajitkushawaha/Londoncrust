@@ -45,6 +45,8 @@ export interface Order {
   sentToKitchenAt?: number;
   acceptedAt?: number;
   etaMinutes?: number;
+  billRequested?: boolean;
+  billRequestAccepted?: boolean;
 }
 
 export interface ApiResponse<T> {

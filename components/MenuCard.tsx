@@ -98,7 +98,7 @@ export default function MenuCard({
   const isReadOnly = !onAddToCart;
 
   return (
-    <div className={`bg-white rounded-[2rem] overflow-hidden border border-slate-100 shadow-sm transition-all duration-300 flex flex-col h-full group ${!isReadOnly ? 'hover:shadow-xl' : 'hover:border-blue-200'}`}>
+    <div className={`bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm transition-all duration-300 flex flex-col h-full group ${!isReadOnly ? 'hover:shadow-xl' : 'hover:border-blue-200'}`}>
       {/* Image Section */}
       <div className="relative aspect-square w-full overflow-hidden bg-slate-100">
         <Image
@@ -108,84 +108,75 @@ export default function MenuCard({
           className="object-cover transition-transform duration-700 group-hover:scale-110"
         />
         {offerLabel && (
-          <div className="absolute top-4 left-4 rounded-xl bg-red-600 px-3 py-1 text-[10px] font-black text-white shadow-lg uppercase tracking-widest italic animate-pulse z-10">
+          <div className="absolute top-2 left-2 rounded-lg bg-red-600 px-2 py-0.5 text-[8px] font-black text-white shadow-lg uppercase tracking-widest italic animate-pulse z-10">
             {offerLabel}
           </div>
         )}
 
         {/* Overlay for Read-Only Mode */}
         {isReadOnly && (
-          <div className="absolute inset-0 bg-linear-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
-            <div className="flex items-center gap-2 text-white text-[10px] font-black uppercase tracking-widest">
-              <Info size={14} className="text-blue-400" /> Swipe to see more
+          <div className="absolute inset-0 bg-linear-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-3">
+            <div className="flex items-center gap-1 text-white text-[8px] font-black uppercase tracking-widest">
+              <Info size={10} className="text-blue-400" /> Swipe
             </div>
           </div>
         )}
 
-        <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-2xl shadow-xl border border-white/20 z-10">
-          <span className="text-slate-900 font-black italic text-lg leading-none">{displayPrice}</span>
+        <div className="absolute bottom-2 right-2 bg-white/90 backdrop-blur-md px-2 py-1 rounded-xl shadow-lg border border-white/20 z-10">
+          <span className="text-slate-900 font-black italic text-sm leading-none">{displayPrice}</span>
         </div>
       </div>
 
-      <div className="p-6 flex flex-col flex-grow relative">
-        <div className="flex justify-between items-start mb-2">
-          <h3 className="text-lg font-black text-slate-900 uppercase italic leading-tight group-hover:text-blue-600 transition-colors uppercase tracking-tight">{name}</h3>
+      <div className="p-3 flex flex-col flex-grow relative">
+        <div className="flex justify-between items-start mb-1">
+          <h3 className="text-xs font-black text-slate-900 uppercase italic leading-tight group-hover:text-blue-600 transition-colors uppercase tracking-tight line-clamp-1">{name}</h3>
         </div>
 
-        <p className="text-[11px] text-slate-400 font-bold uppercase leading-relaxed mb-6 flex-grow line-clamp-3">
+        <p className="text-[9px] text-slate-400 font-bold uppercase leading-tight mb-3 flex-grow line-clamp-2">
           {description}
         </p>
 
-        <div className="space-y-4 mt-auto">
+        <div className="space-y-2 mt-auto">
           {hasVariants && (
-            <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+            <div className="flex gap-1 overflow-x-auto pb-1 scrollbar-hide">
               {variants.map((v, idx) => (
                 <button
                   key={v.name}
                   onClick={() => !isReadOnly && setVariantIndex(idx)}
-                  className={`px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-tighter transition-all border-2 ${variantIndex === idx
-                      ? 'bg-blue-600 border-blue-600 text-white shadow-md'
-                      : 'bg-slate-50 border-slate-100 text-slate-400'
+                  className={`px-2 py-1 rounded-lg text-[8px] font-black uppercase tracking-tighter transition-all border ${variantIndex === idx
+                    ? 'bg-blue-600 border-blue-600 text-white shadow-sm'
+                    : 'bg-slate-50 border-slate-100 text-slate-400'
                     } ${isReadOnly ? 'cursor-default' : 'cursor-pointer'}`}
                 >
-                  {v.name} {isReadOnly && `• ₹${v.price}`}
+                  {v.name.slice(0, 1)}
                 </button>
               ))}
             </div>
           )}
 
-          <div className="flex items-center justify-between pt-4 border-t border-slate-50">
-            <div className="flex gap-3">
-              <div className="flex items-center gap-1 text-[9px] font-black text-red-500 uppercase tracking-widest">
-                <Flame size={12} fill="currentColor" /> Spicy
-              </div>
-              <div className="flex items-center gap-1 text-[9px] font-black text-amber-500 uppercase tracking-widest">
-                <Star size={12} fill="currentColor" /> Top Rated
-              </div>
-            </div>
-
+          <div className="flex items-center justify-between pt-2 border-t border-slate-50">
             {!isReadOnly && (
               qty === 0 ? (
                 <button
                   onClick={handleAdd}
-                  className="bg-red-600 hover:bg-red-700 text-white px-6 py-2.5 rounded-2xl font-black uppercase text-xs tracking-widest shadow-lg shadow-red-600/20 active:scale-95 transition-all flex items-center gap-2"
+                  className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-xl font-black uppercase text-[10px] tracking-widest shadow-lg shadow-red-600/20 active:scale-95 transition-all flex items-center justify-center gap-1"
                 >
-                  Add <Plus size={14} strokeWidth={3} />
+                  ADD <Plus size={12} strokeWidth={4} />
                 </button>
               ) : (
-                <div className="flex items-center gap-4 bg-slate-100 p-1.5 rounded-2xl border border-slate-200 shadow-inner">
+                <div className="flex items-center justify-between w-full bg-slate-100 p-1 rounded-xl border border-slate-200">
                   <button
                     onClick={handleRemove}
-                    className="w-8 h-8 flex items-center justify-center bg-white rounded-xl text-red-600 shadow-sm active:scale-90 transition-all hover:bg-red-50"
+                    className="w-6 h-6 flex items-center justify-center bg-white rounded-lg text-red-600 shadow-sm active:scale-90 transition-all hover:bg-red-50"
                   >
-                    <Minus size={16} strokeWidth={3} />
+                    <Minus size={12} strokeWidth={4} />
                   </button>
-                  <span className="text-sm font-black text-slate-900 w-4 text-center">{qty}</span>
+                  <span className="text-xs font-black text-slate-900 mx-2">{qty}</span>
                   <button
                     onClick={handleAdd}
-                    className="w-8 h-8 flex items-center justify-center bg-white rounded-xl text-blue-600 shadow-sm active:scale-90 transition-all hover:bg-blue-50"
+                    className="w-6 h-6 flex items-center justify-center bg-white rounded-lg text-blue-600 shadow-sm active:scale-90 transition-all hover:bg-blue-50"
                   >
-                    <Plus size={16} strokeWidth={3} />
+                    <Plus size={12} strokeWidth={4} />
                   </button>
                 </div>
               )

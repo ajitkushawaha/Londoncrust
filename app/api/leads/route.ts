@@ -10,6 +10,7 @@ interface LeadDto {
   createdAt?: number;
   lastSeenAt?: number;
   lastTableId?: string;
+  visits?: number;
 }
 
 export async function GET(req: NextRequest) {
@@ -42,6 +43,7 @@ export async function GET(req: NextRequest) {
     createdAt: d.createdAt,
     lastSeenAt: d.lastSeenAt,
     lastTableId: d.lastTableId,
+    visits: d.visits || 1,
   }));
 
   return NextResponse.json<ApiResponse<LeadDto[]>>({ ok: true, data });
