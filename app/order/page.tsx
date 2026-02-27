@@ -109,7 +109,7 @@ export default function OrderPage() {
                     </div>
                     <div className="grow">
                       <div className="flex justify-between items-start mb-1">
-                        <h3 className="font-black text-slate-900 uppercase italic text-sm leading-tight leading-none">{item.name}</h3>
+                        <h3 className="font-black text-slate-900 uppercase italic text-sm leading-tight">{item.name}</h3>
                         <button onClick={() => removeItem(item.id)} className="text-slate-300 hover:text-red-500 transition-colors p-1">
                           <Trash2 size={16} />
                         </button>
@@ -216,7 +216,7 @@ export default function OrderPage() {
                 <button
                   onClick={handlePlaceOrder}
                   disabled={cart.length === 0 || !tableNumber || isOrdering}
-                  className={`w-full py-6 rounded-2.5xl font-black uppercase text-lg tracking-[0.1em] shadow-2xl transition-all active:scale-95 flex items-center justify-center gap-3 ${isOrdering
+                  className={`w-full py-6 rounded-2.5xl font-black uppercase text-lg tracking-widest shadow-2xl transition-all active:scale-95 flex items-center justify-center gap-3 ${isOrdering
                       ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
                       : 'bg-blue-600 text-white hover:bg-blue-700 shadow-blue-600/20'
                     }`}

@@ -127,12 +127,12 @@ export default function MenuCard({
         </div>
       </div>
 
-      <div className="p-3 flex flex-col flex-grow relative">
+      <div className="p-3 flex flex-col grow relative">
         <div className="flex justify-between items-start mb-1">
-          <h3 className="text-xs font-black text-slate-900 uppercase italic leading-tight group-hover:text-blue-600 transition-colors uppercase tracking-tight line-clamp-1">{name}</h3>
+          <h3 className="text-xs font-black text-slate-900 italic leading-tight group-hover:text-blue-600 transition-colors uppercase tracking-tight line-clamp-1">{name}</h3>
         </div>
 
-        <p className="text-[9px] text-slate-400 font-bold uppercase leading-tight mb-3 flex-grow line-clamp-2">
+        <p className="text-[9px] text-slate-400 font-bold uppercase leading-tight mb-3 grow line-clamp-2">
           {description}
         </p>
 

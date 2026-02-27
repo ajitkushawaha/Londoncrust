@@ -222,7 +222,7 @@ export default function MenuPage() {
                                 </div>
                               )}
                             </div>
-                            <div className="flex-grow border-b-2 border-slate-200 border-dotted mb-1 mx-2"></div>
+                            <div className="grow border-b-2 border-slate-200 border-dotted mb-1 mx-2"></div>
                             <span className="font-black text-xl italic text-slate-900 whitespace-nowrap">
                               {item.price ? `₹${item.price}` : item.priceLabel}
                             </span>

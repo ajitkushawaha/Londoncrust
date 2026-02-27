@@ -14,7 +14,7 @@ export default function Footer() {
           <div className="lg:col-span-1 space-y-6">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-blue-600 font-black text-2xl shadow-xl">LC</div>
-              <span className="font-black text-2xl tracking-tighter uppercase italic italic">London Crust</span>
+              <span className="font-black text-2xl tracking-tighter uppercase italic">London Crust</span>
             </div>
             <p className="text-sm leading-relaxed font-bold text-red-100 uppercase tracking-wide">
               {restaurantInfo.description}
