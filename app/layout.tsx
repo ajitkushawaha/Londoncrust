@@ -19,7 +19,6 @@ export const metadata: Metadata = {
   title: 'London Crust Pizza • Ahmedabad',
   description:
     "Taste the crust you'll crave. Fresh, crispy and loaded pizzas on CG Road, Navrangpura.",
-  generator: 'v0.app',
   manifest: '/manifest.webmanifest',
   icons: {
     icon: [

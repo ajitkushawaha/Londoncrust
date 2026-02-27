@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Download, CookingPot, Receipt, LayoutDashboard } from 'lucide-react';
+import { Download, LayoutDashboard } from 'lucide-react';
 
 type DeferredInstall = BeforeInstallPromptEvent | null;
 
@@ -46,7 +46,7 @@ export default function AdminPwaActions() {
         <Download size={16} className="text-primary" />
         <p className="text-sm font-bold uppercase tracking-wide">Install App</p>
       </div>
-      <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+      <div className="grid grid-cols-1 gap-2">
         <button
           onClick={() => installAndRoute('/admin/dashboard')}
           disabled={installing}
@@ -54,23 +54,9 @@ export default function AdminPwaActions() {
         >
           <LayoutDashboard size={14} /> Dashboard App
         </button>
-        <button
-          onClick={() => installAndRoute('/admin/dashboard/kitchen')}
-          disabled={installing}
-          className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 hover:border-primary/30 hover:bg-primary/5 disabled:opacity-60"
-        >
-          <CookingPot size={14} /> Kitchen App
-        </button>
-        <button
-          onClick={() => installAndRoute('/admin/dashboard/counter')}
-          disabled={installing}
-          className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 hover:border-primary/30 hover:bg-primary/5 disabled:opacity-60"
-        >
-          <Receipt size={14} /> Counter App
-        </button>
       </div>
       <p className="mt-2 text-[11px] font-medium text-slate-500">
-        Single install with shortcuts. Authentication is still enforced per route.
+        Single install with shortcuts and its work only in andriod. Authentication is enforced per protected route.
       </p>
     </div>
   );

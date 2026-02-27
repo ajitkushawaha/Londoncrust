@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { Menu, X, ShoppingBag, User, Phone } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { restaurantInfo } from '@/lib/mockData';
@@ -22,8 +23,14 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           <Link href="/" className="flex items-center gap-3">
-            <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center border-2 transition-all ${isScrolled ? 'bg-red-600 border-red-100' : 'bg-white border-blue-600'}`}>
-              <span className={`font-black text-xl sm:text-2xl ${isScrolled ? 'text-white' : 'text-blue-600'}`}>LC</span>
+            <div className={`relative w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden flex items-center justify-center border-2 transition-all ${isScrolled ? 'bg-red-600 border-red-100' : 'bg-white border-blue-600'}`}>
+              <Image
+                src="/favicon/apple-icon-180x180.png"
+                alt="London Crust Logo"
+                fill
+                sizes="48px"
+                className="object-cover"
+              />
             </div>
             <div className="flex flex-col">
               <span className={`font-black text-lg sm:text-xl tracking-tighter leading-none transition-colors ${isScrolled ? 'text-slate-900' : 'text-white'}`}>

@@ -78,7 +78,7 @@ export default function AdminDashboard() {
           </button>
         </div>
 
-        <AdminPwaActions />
+
 
         {/* Dashboard Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
@@ -129,7 +129,7 @@ export default function AdminDashboard() {
             );
           })}
         </div>
-
+        <AdminPwaActions />
         {/* Footer Status */}
         <div className="mt-16 sm:mt-20 flex flex-col items-center gap-4">
           <div className="inline-flex items-center gap-2.5 px-4 py-2 sm:px-5 sm:py-2.5 bg-white border border-slate-200 rounded-2xl shadow-sm text-slate-600 text-xs sm:text-sm font-bold transition-all hover:border-primary/20 hover:shadow-md cursor-default">
