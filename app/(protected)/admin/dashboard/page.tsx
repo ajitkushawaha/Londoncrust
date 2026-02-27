@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LayoutDashboard, Receipt, CookingPot, LogOut, ChevronRight, Activity, Sparkles } from 'lucide-react';
 import Link from 'next/link';
+import AdminPwaActions from '@/components/AdminPwaActions';
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -76,6 +77,8 @@ export default function AdminDashboard() {
             </div>
           </button>
         </div>
+
+        <AdminPwaActions />
 
         {/* Dashboard Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
