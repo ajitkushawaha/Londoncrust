@@ -84,6 +84,13 @@ export default function TableOrderPage() {
   }, [tableId]);
 
   useEffect(() => {
+    if (!guestReady) return;
+    fetchOrders();
+    const interval = setInterval(fetchOrders, 3000);
+    return () => clearInterval(interval);
+  }, [guestReady]);
+
+  useEffect(() => {
     const load = async () => {
       try {
         const res = await fetch('/api/menu');
@@ -99,12 +106,10 @@ export default function TableOrderPage() {
   const fetchOrders = async () => {
     setIsRefreshing(true);
     try {
-      const res = await fetch('/api/orders');
+      const res = await fetch('/api/orders?scope=mine', { cache: 'no-store' });
       const json = await res.json();
       if (json.ok) {
-        // Filter orders for this table only
-        const tableOrders = (json.data || []).filter((o: Order) => o.tableId === tableId);
-        setOrders(tableOrders);
+        setOrders(json.data || []);
       }
     } catch (e) {
       console.error('Failed to fetch orders');
@@ -646,7 +651,7 @@ export default function TableOrderPage() {
               {orders.length === 0 ? (
                 <div className="text-center py-20">
                   <Clock size={40} className="mx-auto text-slate-100 mb-4" />
-                  <p className="text-sm font-black text-slate-300 uppercase italic tracking-widest text-center px-12">No orders placed yet in this session.</p>
+                  <p className="text-sm font-black text-slate-300 uppercase italic tracking-widest text-center px-12">No order history found for this mobile number.</p>
                 </div>
               ) : (
                 orders.map((order) => (
@@ -679,10 +684,14 @@ export default function TableOrderPage() {
                       </div>
 
                       {/* Progress/ETA */}
-                      {order.status === 'in_progress' && order.etaMinutes && (
+                      {order.status === 'in_progress' && (
                         <div className="flex items-center gap-3 bg-blue-50/50 p-3 rounded-2xl border border-blue-100/50 animate-pulse">
                           <Clock className="text-blue-600" size={16} />
-                          <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Est. Ready in {order.etaMinutes} mins</p>
+                          <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest">
+                            {typeof order.etaMinutes === 'number' && order.etaMinutes > 0
+                              ? `Est. Ready in ${order.etaMinutes} mins`
+                              : 'Preparing'}
+                          </p>
                         </div>
                       )}
 
@@ -751,4 +760,3 @@ export default function TableOrderPage() {
     </div>
   );
 }
-

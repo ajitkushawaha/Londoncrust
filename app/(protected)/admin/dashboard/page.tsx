@@ -140,7 +140,7 @@ export default function AdminDashboard() {
             <span className="text-slate-400 font-medium hidden xs:inline">99.9% Uptime</span>
           </div>
           <p className="text-slate-400 text-[10px] sm:text-xs font-medium tracking-wide text-center">
-            &copy; 2024 LONDON CRUST PIZZA • ADMIN PANEL V2.1
+            &copy; 2026 LONDON CRUST PIZZA • ADMIN PANEL V2.1
           </p>
         </div>
       </div>

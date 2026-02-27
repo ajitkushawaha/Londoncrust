@@ -22,13 +22,13 @@ export default function KitchenDashboardPage() {
   const [activeTab, setActiveTab] = useState<'queue' | 'progress'>('queue');
   useEffect(() => {
     fetchOrders();
-    const interval = setInterval(fetchOrders, 4000);
+    const interval = setInterval(fetchOrders, 3000);
     return () => clearInterval(interval);
   }, []);
 
   const fetchOrders = async () => {
     try {
-      const res = await fetch('/api/orders');
+      const res = await fetch('/api/orders', { cache: 'no-store' });
       const json = await res.json();
       if (json.ok) setOrders(json.data);
     } catch (e) {
@@ -39,7 +39,8 @@ export default function KitchenDashboardPage() {
   };
 
   const accept = async (id: string) => {
-    const eta = etas[id] || 15;
+    const rawEta = etas[id];
+    const eta = Number.isFinite(rawEta) ? rawEta : 15;
     try {
       const res = await fetch(`/api/orders/${id}`, {
         method: 'PATCH',
@@ -153,7 +154,7 @@ export default function KitchenDashboardPage() {
                     <div className="flex items-center gap-2">
                       <input
                         type="number"
-                        min={5}
+                        min={0}
                         max={90}
                         value={etas[order.id] ?? 15}
                         onChange={(e) => setEtas(prev => ({ ...prev, [order.id]: Number(e.target.value) }))}
@@ -188,7 +189,9 @@ export default function KitchenDashboardPage() {
                     <div className="flex items-center gap-1.5 mt-0.5">
                       <Clock size={12} className="text-emerald-500" />
                       <span className="text-emerald-600 text-xs font-black uppercase tracking-wider">
-                        Ready in {order.etaMinutes} min
+                        {typeof order.etaMinutes === 'number' && order.etaMinutes > 0
+                          ? `Ready in ${order.etaMinutes} min`
+                          : 'Preparing'}
                       </span>
                     </div>
                   </div>

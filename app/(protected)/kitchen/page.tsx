@@ -15,7 +15,7 @@ export default function KitchenPage() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/orders');
+      const res = await fetch('/api/orders', { cache: 'no-store' });
       const json = await res.json();
       if (json.ok) {
         setOrders(json.data);
@@ -31,12 +31,13 @@ export default function KitchenPage() {
 
   useEffect(() => {
     load();
-    const id = setInterval(load, 4000);
+    const id = setInterval(load, 3000);
     return () => clearInterval(id);
   }, []);
 
   const accept = async (id: string) => {
-    const eta = etas[id] || 15;
+    const rawEta = etas[id];
+    const eta = Number.isFinite(rawEta) ? rawEta : 15;
     const res = await fetch(`/api/orders/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -95,7 +96,7 @@ export default function KitchenPage() {
                   <div className="flex items-center gap-2">
                     <input
                       type="number"
-                      min={5}
+                      min={0}
                       max={90}
                       value={etas[o.id] ?? 15}
                       onChange={(e) =>
@@ -131,7 +132,7 @@ export default function KitchenPage() {
                 >
                   <div>
                     <p className="font-medium">
-                      Table {o.tableId} • ₹{o.total} • ETA {o.etaMinutes}m
+                      Table {o.tableId} • ₹{o.total} • {typeof o.etaMinutes === 'number' && o.etaMinutes > 0 ? `ETA ${o.etaMinutes}m` : 'Preparing'}
                     </p>
                     <p className="text-sm text-muted-foreground">
                       {o.items.map((it) => `${it.name}×${it.quantity}`).join(', ')}
@@ -156,4 +157,3 @@ export default function KitchenPage() {
     </div>
   );
 }
-

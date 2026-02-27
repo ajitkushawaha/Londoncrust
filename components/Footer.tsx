@@ -64,7 +64,7 @@ export default function Footer() {
         </div>
 
         <div className="pt-10 border-t border-white/20 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-[10px] font-black tracking-[0.2em] uppercase opacity-70 italic">&copy; 2024 London Crust Pizza. Ahmedabad's Finest.</p>
+          <p className="text-[10px] font-black tracking-[0.2em] uppercase opacity-70 italic">&copy; 2026 London Crust Pizza. Ahmedabad's Finest.</p>
           <div className="flex items-center gap-4 text-[10px] font-black text-red-200 uppercase tracking-widest">
             Privacy <span className="w-1 h-1 rounded-full bg-white/30"></span>
             Terms <span className="w-1 h-1 rounded-full bg-white/30"></span>

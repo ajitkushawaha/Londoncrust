@@ -103,7 +103,7 @@ export default function LoginPage() {
       </div>
       
       <p className="mt-8 text-slate-400 text-sm">
-        &copy; 2024 London Crust Pizza. All rights reserved.
+        &copy; 2026 London Crust Pizza. All rights reserved.
       </p>
     </div>
   );

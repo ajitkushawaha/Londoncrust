@@ -28,15 +28,15 @@ export default function CounterPage() {
 
   useEffect(() => {
     fetchData();
-    const interval = setInterval(fetchData, 5000);
+    const interval = setInterval(fetchData, 3000);
     return () => clearInterval(interval);
   }, []);
 
   const fetchData = async () => {
     try {
       const [tablesRes, ordersRes] = await Promise.all([
-        fetch('/api/tables'),
-        fetch('/api/orders')
+        fetch('/api/tables', { cache: 'no-store' }),
+        fetch('/api/orders', { cache: 'no-store' })
       ]);
       const tablesJson = await tablesRes.json();
       const ordersJson = await ordersRes.json();

@@ -4,12 +4,30 @@ import { getDb } from '@/lib/db';
 import { ObjectId } from 'mongodb';
 import { GUEST_SESSION_COOKIE_NAME, getGuestSessionByToken } from '@/lib/auth';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const status = searchParams.get('status') as any;
+  const scope = searchParams.get('scope');
+  const tableId = searchParams.get('tableId');
   const db = await getDb();
   const query: any = {};
   if (status) query.status = status;
+  if (tableId) query.tableId = tableId;
+
+  if (scope === 'mine') {
+    const token = req.cookies.get(GUEST_SESSION_COOKIE_NAME)?.value;
+    if (!token) {
+      return NextResponse.json<ApiResponse<Order[]>>({ ok: true, data: [] });
+    }
+    const session = await getGuestSessionByToken(token);
+    if (!session) {
+      return NextResponse.json<ApiResponse<Order[]>>({ ok: true, data: [] });
+    }
+    query.guestPhone = session.phone;
+  }
+
   const docs = await db
     .collection('orders')
     .find(query)
@@ -66,6 +84,7 @@ export async function POST(req: NextRequest) {
     const db = await getDb();
     const doc = {
       tableId: body.tableId,
+      guestPhone: session.phone,
       items: body.items,
       total,
       status: 'pending_verification',
